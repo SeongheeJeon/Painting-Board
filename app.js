@@ -20,26 +20,22 @@ function startPainting() {
 function onMouseMove(event) {
   const x = event.offsetX;
   const y = event.offsetY;
-  if (!painting) {
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-  } else {
+
+  if (painting) {
     ctx.lineTo(x, y);
     ctx.stroke();
+    console.log(ctx);
   }
 }
 
 function onMouseDown(event) {
   painting = true;
-}
-
-function onMouseUp(event) {
-  stopPainting();
+  ctx.beginPath();
 }
 
 if (canvas) {
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", onMouseDown);
-  canvas.addEventListener("mouseup", onMouseUp);
+  canvas.addEventListener("mouseup", stopPainting);
   canvas.addEventListener("mouseleave", stopPainting);
 }
